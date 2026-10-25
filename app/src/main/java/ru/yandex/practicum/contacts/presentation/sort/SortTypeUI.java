@@ -2,49 +2,48 @@ package ru.yandex.practicum.contacts.presentation.sort;
 
 import androidx.annotation.NonNull;
 
-public class SortTypeUI {
+import ru.yandex.practicum.contacts.presentation.base.ListDiffInterface;
+import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
+import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactTypeUi;
 
-    private final String type;
-    private final boolean isSelected;
+public class SortTypeUI implements ListDiffInterface<SortTypeUI> {
 
-    public SortTypeUI(@NonNull String type, boolean isSelected) {
-        this.type = type;
-        this.isSelected = isSelected;
+    private final SortType sortType;
+    private final boolean selected;
+
+    public SortTypeUI(@NonNull SortType sortType, boolean selected) {
+        this.sortType = sortType;
+        this.selected = selected;
     }
 
-    public String getType() {
-        return type;
+    public SortType getSortType() {
+        return sortType;
     }
 
     public boolean isSelected() {
-        return isSelected;
+        return selected;
     }
-
-    public String createLogMessage() {
-        return "Выбран тип сортировки: " + type;
+    @Override
+    public boolean theSameAs(SortTypeUI other) {
+        return this.getSortType() == other.getSortType();
     }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         SortTypeUI that = (SortTypeUI) o;
 
-        if (isSelected != that.isSelected) {
-            return false;
-        }
-        return type.equals(that.type);
+        if (selected != that.selected) return false;
+        return sortType == that.sortType;
     }
 
     @Override
     public int hashCode() {
-        int result = type.hashCode();
-        result = 31 * result + (isSelected ? 1 : 0);
+        int result = sortType.hashCode();
+        result = 31 * result + (selected ? 1 : 0);
         return result;
     }
+
+
 }

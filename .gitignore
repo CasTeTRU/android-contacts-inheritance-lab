@@ -84,3 +84,10 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+# added 2026-10-25 (git hygiene)
+.kotlin/
+*.jks
+*.keystore
+.idea/caches/
+.tonfotos.ini

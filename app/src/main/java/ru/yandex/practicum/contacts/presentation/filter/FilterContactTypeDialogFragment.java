@@ -3,6 +3,9 @@ package ru.yandex.practicum.contacts.presentation.filter;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -13,9 +16,6 @@ import ru.yandex.practicum.contacts.model.ContactType;
 import ru.yandex.practicum.contacts.presentation.base.BaseBottomSheetDialogFragment;
 import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactTypeUi;
 import ru.yandex.practicum.contacts.ui.widget.DividerItemDecoration;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class FilterContactTypeDialogFragment extends BaseBottomSheetDialogFragment<FilterContactTypeViewModel> {
 
@@ -32,10 +32,7 @@ public class FilterContactTypeDialogFragment extends BaseBottomSheetDialogFragme
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         iniViewModel();
-        adapter = new FilterContactTypeAdapter((filterContactType) -> {
-            viewModel.onFilterTypeItemClick(filterContactType);
-            viewModel.log(filterContactType.createLogMessage());
-        });
+        adapter = new FilterContactTypeAdapter(viewModel::onFilterTypeItemClick);
         binding.recycler.setAdapter(adapter);
 
         final DividerItemDecoration decoration = new DividerItemDecoration(

@@ -2,26 +2,24 @@ package ru.yandex.practicum.contacts.presentation.filter.model;
 
 import androidx.annotation.NonNull;
 
-public class FilterContactTypeUi {
+import ru.yandex.practicum.contacts.presentation.base.ListDiffInterface;
 
-    private final String type;
-    private final boolean isSelected;
+public class FilterContactTypeUi implements ListDiffInterface<FilterContactTypeUi> {
 
-    public FilterContactTypeUi(@NonNull String type, boolean isSelected) {
-        this.type = type;
-        this.isSelected = isSelected;
+    private final FilterContactType contactType;
+    private final boolean selected;
+
+    public FilterContactTypeUi(@NonNull FilterContactType contactType, boolean selected) {
+        this.contactType = contactType;
+        this.selected = selected;
     }
 
-    public String getType() {
-        return type;
+    public String getContactType() {
+        return contactType.toString();
     }
 
     public boolean isSelected() {
-        return isSelected;
-    }
-
-    public String createLogMessage() {
-        return "Выбран фильтр: " + type;
+        return selected;
     }
 
     @Override
@@ -31,14 +29,27 @@ public class FilterContactTypeUi {
 
         FilterContactTypeUi that = (FilterContactTypeUi) o;
 
-        if (isSelected != that.isSelected) return false;
-        return type.equals(that.type);
+        if (selected != that.selected) return false;
+        return contactType == that.contactType;
     }
 
     @Override
     public int hashCode() {
-        int result = type.hashCode();
-        result = 31 * result + (isSelected ? 1 : 0);
+        int result = contactType.hashCode();
+        result = 31 * result + (selected ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public boolean theSameAs(FilterContactTypeUi other){
+        return this.getContactType() == other.getContactType();
+    }
+
+    public String createLogMessage() {
+        return "";
+    }
+
+    public String getType() {
+        return null;
     }
 }
